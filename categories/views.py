@@ -8,6 +8,7 @@ from django.db.models import RestrictedError
 from rest_framework import generics
 from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly
 from core.permissions import IsAdminOrReadOnly
+
 #@api_view(["GET","POST"])
 #def category_list(request):
  #   if request.method == "POST":
@@ -68,8 +69,6 @@ def category_delete(request, pk):
         return Response({"error":"Category cannot be deleted because it has related products."}, status=status.HTTP_400_BAD_REQUEST)
     
 
-
-
 class CategoryListCreateView(generics.ListCreateAPIView):
     queryset= Category.objects.all()
     permission_classes= [IsAdminOrReadOnly]
@@ -84,6 +83,7 @@ class CategoryListCreateView(generics.ListCreateAPIView):
             return [IsAdminUser()]
         return super().get_permissions()
     
+
 
 class CategoryRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset= Category.objects.all()
