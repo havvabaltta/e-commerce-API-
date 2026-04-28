@@ -19,7 +19,7 @@ from core.permissions import IsAdminOrReadOnly
   #      "message": "Veriler listelendi."
   #  })
 
-
+    
 
 class CategoryListCreateView(generics.ListCreateAPIView):
     queryset= Category.objects.all()
@@ -41,13 +41,13 @@ class CategoryRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes= [IsAdminOrReadOnly]
 
     def get_serializer_class(self):
-        if self.request.method in ["PUT", "PATCH"]:
+        if self.request.method in ["PUT","PATCH"]:
             return serializers.CategoryCreateUpdateSerializer
         return serializers.CategoryDetailSerializer
 
     def delete(self, request, *args, **kwargs):
         category = self.get_object()
-
+    
         try:
             category.delete()
             return Response({"message": "Category deleted"}, status=status.HTTP_204_NO_CONTENT)
@@ -59,6 +59,11 @@ class CategoryRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
             return [IsAdminUser()]
         return super().get_permissions()
     
+
+
+
+
+
 
 
 

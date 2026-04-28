@@ -3,9 +3,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.validators import UniqueValidator
 
 class RegisterSerializer(serializers.ModelSerializer):
-    email =  serializers.EmailField()
+    email =  serializers.EmailField(required=True, validators= [UniqueValidator(queryset=User.objects.all())])
     password = serializers.CharField(write_only=True, min_length=6)
     password_confirm = serializers.CharField(write_only=True, min_length=6)
 
