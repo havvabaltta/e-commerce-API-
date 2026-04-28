@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import generics,status
+from rest_framework import generics,status,permissions
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from django.contrib.auth.models import User
@@ -54,3 +54,11 @@ class ChangePassword(generics.UpdateAPIView):
             return Response({"detail":"Şifre başarıyla değiştirildi."}, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+class UserUpdateView(generics.UpdateAPIView):
+    serializer_class = serializers.UserUpdateSerializer
+    permission_classes = [permissions.IsAuthenticated] 
+
+    def get_object(self):
+        return self.request.user
