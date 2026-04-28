@@ -19,8 +19,6 @@ from core.permissions import IsAdminOrReadOnly
   #      "message": "Veriler listelendi."
   #  })
 
-    
-
 class CategoryListCreateView(generics.ListCreateAPIView):
     queryset= Category.objects.all()
     permission_classes= [IsAdminOrReadOnly]
@@ -60,12 +58,7 @@ class CategoryRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
         return super().get_permissions()
     
 
-
-
-
-
-
-
+""""" function based seviyesinde işlemler 
 
 @api_view(["GET","POST"])
 def category_list(request):
@@ -115,3 +108,4 @@ def category_delete(request, pk):
     except RestrictedError:
         return Response({"error":"Category cannot be deleted because it has related products."}, status=status.HTTP_400_BAD_REQUEST)
   
+"""        

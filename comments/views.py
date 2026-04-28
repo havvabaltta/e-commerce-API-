@@ -49,32 +49,7 @@ class CommentUpdateView(APIView):
 
 
 
-""""  concrete yapısı kullanarak daha basit kod yazılır,framework tarafında işlemler daha kolay yapılır
-
-class CommentView(generics.ListCreateAPIView):
-    queryset = Comment.objects.all()
-
-    def get_serializer_class(self):
-        if self.request.method == "POST":
-            return serializers.CommentCreateSerializer
-        return serializers.CommentSerializer
-
-    def get_queryset(self):
-        product_id = self.kwargs.get("product_id")
-        if product_id:
-            return Comment.objects.filter(product_id=product_id)
-        return Comment.objects.all()
-    
-class CommentUpdateView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Comment.objects.all()
-
-    def get_serializer_class(self):
-        if self.request.method in ["PUT", "PATCH"]:
-            return serializers.CommentUpdateSerializer
-        return serializers.CommentSerializer
-"""
-
-
+"""""
 #generic yapısı 
 class CommentView(generics.GenericAPIView,mixins.ListModelMixin,mixins.CreateModelMixin):
     queryset = Comment.objects.all()
@@ -124,4 +99,33 @@ class CommentUpdateView(generics.GenericAPIView,
     def delete(self,request, *args, **kwargs):
             return self.destroy(request, *args, **kwargs)
     
+"""""
+
+
+""""  concrete yapısı kullanarak daha basit kod yazılır,framework tarafında işlemler daha kolay yapılır """
+
+class CommentView(generics.ListCreateAPIView):
+    queryset = Comment.objects.all()
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get_serializer_class(self):
+        if self.request.method == "POST":
+            return serializers.CommentCreateSerializer
+        return serializers.CommentSerializer
+
+    def get_queryset(self):
+        product_id = self.kwargs.get("product_id")
+        if product_id:
+            return Comment.objects.filter(product_id=product_id)
+        return Comment.objects.all()
+    
+    
+class CommentUpdateView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comment.objects.all()
+    permission_classes= [IsOwnerOrReadOnly]
+
+    def get_serializer_class(self):
+        if self.request.method in ["PUT", "PATCH"]:
+            return serializers.CommentUpdateSerializer
+        return serializers.CommentSerializer
 

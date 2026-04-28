@@ -49,6 +49,7 @@ def product_details(request,pk):
     serializer= serializers.ProductDetailSerializer(product)
     return Response (serializer.data)
 
+
 @api_view(['POST'])
 @permission_classes([IsAdminUser])
 def product_create(request):
@@ -57,6 +58,7 @@ def product_create(request):
        serializer.save()
        return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['PUT', 'PATCH'])
 @permission_classes([IsAdminUser])
@@ -75,6 +77,7 @@ def product_update(request,pk):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)  
+
 
 @api_view(['DELETE'])
 @permission_classes([IsAdminUser])

@@ -78,7 +78,6 @@ class AdminProductListSerializer(serializers.ModelSerializer):
         fields = ["id", "name","slug", "price", "category","isActive","isHome","stock"]
 
 
-
 class ProductDetailSerializer(serializers.ModelSerializer):
     comments= CommentSerializer(many=True)
     class Meta:
@@ -86,11 +85,13 @@ class ProductDetailSerializer(serializers.ModelSerializer):
         fields = "__all__"
     #  exclude=["isHome", "isActive"]
 
+
 #create işlemleri
 class ProductCreateSerializer(BaseProductSerializer):
     class Meta(BaseProductSerializer.Meta):
         model = Product
         fields=["name","slug","price","category"]
+
 
 class ProductUpdateSerializer(BaseProductSerializer):
     class Meta(BaseProductSerializer.Meta):
