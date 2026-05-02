@@ -23,6 +23,7 @@ urlpatterns = [
     path('categories/', include('categories.urls')),
     path('comments/', include('comments.urls')), 
     path('users/', include('users.urls')), 
+    path('carts/', include('carts.urls')), 
     
 ]
 
