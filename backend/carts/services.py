@@ -1,6 +1,6 @@
 
 from rest_framework.exceptions import NotFound, ValidationError
-from backend.products.models import Product
+from products.models import Product
 from django.shortcuts import get_object_or_404
 from .models import Cart,CartItem
 from rest_framework.response import Response
