@@ -1,90 +1,84 @@
 import { useEffect, useState } from "react";
 import { getProducts } from "../api/productApi";
-import { getCategories } from "../api/categoryApi"; //  ekledik
 import { Link } from "react-router-dom";
 
 function Home() {
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]); //  yeni state
 
   useEffect(() => {
-    // 🔹 ürünleri çek
-    getProducts()
-      .then((res) => {
-        const homeProducts = res.data.filter(p => p.isHome);
-        setProducts(homeProducts);
-      })
-      .catch((err) => console.error(err));
-
-    // 🔹 kategorileri çek
-    getCategories()
-      .then((res) => {
-        setCategories(res.data);
-      })
-      .catch((err) => console.error(err));
-
+    getProducts().then(res => {
+      const data = res.data.results || res.data;
+      setProducts(data);
+    });
   }, []);
 
   return (
-    <div>
+    <div className="container py-4">
 
       {/* HERO */}
-      <div className="bg-dark text-white p-5 text-center">
-        <div className="container">
-          <h1>Hoş Geldin 👋</h1>
-          <p>En iyi ürünleri en uygun fiyatlarla keşfet</p>
-          <Link to="/products" className="btn btn-primary">
-            Alışverişe Başla
-          </Link>
-        </div>
+      <div
+        className="text-white p-5 rounded-4 mb-5 shadow-lg"
+        style={{
+          background: "linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%)",
+        }}
+      >
+        <h1 className="display-4 fw-bold mb-3">Hoş Geldin 👋</h1>
+        <p className="lead mb-4">
+          En iyi ürünleri keşfetmeye hazır mısın?
+        </p>
+
+        <Link
+          to="/products"
+          className="btn btn-light btn-lg px-5 rounded-pill"
+        >
+          Alışverişe Başla
+        </Link>
       </div>
 
-      {/* KATEGORİLER (DİNAMİK) */}
-      <div className="container mt-5">
-        <h3>Kategoriler</h3>
-        <div className="row text-center mt-3">
+      {/* PRODUCTS */}
+      <h4 className="mb-4 fw-bold">Popüler Ürünler</h4>
 
-          {categories.map((cat) => (
-            <div className="col-md-3" key={cat.id}>
-              <div className="card p-3">
-                <h5>{cat.name}</h5>
-                <small>{cat.description}</small>
+      <div className="row g-4">
+
+        {products.slice(0, 8).map(p => (
+          <div className="col-md-3 col-sm-6" key={p.id}>
+
+            <div className="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
+
+              {/* IMAGE */}
+              <img
+                src={
+                  p.image
+                    ? `http://127.0.0.1:8000${p.image}`
+                    : "https://via.placeholder.com/300"
+                }
+                alt={p.name}
+                style={{ height: "180px", objectFit: "cover" }}
+                className="w-100"
+              />
+
+              <div className="card-body d-flex flex-column">
+
+                <h6 className="fw-bold">{p.name}</h6>
+
+                <span className="badge bg-success mb-2">
+                  {p.price} ₺
+                </span>
+
+                <Link
+                  to={`/product/${p.id}`}
+                  className="btn btn-outline-dark mt-auto rounded-pill"
+                >
+                  Detay
+                </Link>
+
               </div>
+
             </div>
-          ))}
 
-        </div>
-      </div>
+          </div>
+        ))}
 
-      {/* ÜRÜNLER */}
-      <div className="container mt-5">
-        <h3>Öne Çıkan Ürünler</h3>
-        <div className="row mt-3">
-          {products.map((p) => (
-            <div className="col-md-3" key={p.id}>
-              <div className="card mb-3">
-                <div className="card-body">
-                  <h5>{p.name}</h5>
-                  <p>{p.price} ₺</p>
-                  <Link to={`/product/${p.id}`} className="btn btn-outline-primary btn-sm">
-                    Detay
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* KAMPANYA */}
-      <div className="bg-warning mt-5 p-5 text-center">
-        <h2>%50 İndirim!</h2>
-        <p>Seçili ürünlerde büyük fırsatları kaçırma</p>
-      </div>
-
-      {/* FOOTER */}
-      <div className="bg-dark text-white mt-5 p-4 text-center">
-        <p>© 2026 E-Commerce</p>
       </div>
 
     </div>

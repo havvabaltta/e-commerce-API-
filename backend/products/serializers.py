@@ -67,7 +67,7 @@ class ProductListSerializer(serializers.ModelSerializer):
  
     class Meta:
         model = Product
-        fields = [ "name", "price", "category"]
+        fields = [ "name", "price", "category","image"]
 
 
 class AdminProductListSerializer(serializers.ModelSerializer):
@@ -75,7 +75,7 @@ class AdminProductListSerializer(serializers.ModelSerializer):
  
     class Meta:
         model = Product
-        fields = ["id", "name","slug", "price", "category","isActive","isHome","stock"]
+        fields = ["id", "name","slug", "price", "category","isActive","isHome","stock","image"]
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
@@ -90,13 +90,13 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 class ProductCreateSerializer(BaseProductSerializer):
     class Meta(BaseProductSerializer.Meta):
         model = Product
-        fields=["name","slug","price","category"]
+        fields=["name","slug","price","category","image"]
 
 
 class ProductUpdateSerializer(BaseProductSerializer):
     class Meta(BaseProductSerializer.Meta):
         model = Product
-        fields=["name","slug","description","price","stock"]
+        fields=["name","slug","description","price","stock","image"]
 
 
 

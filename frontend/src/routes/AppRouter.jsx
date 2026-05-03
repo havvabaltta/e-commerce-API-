@@ -10,9 +10,9 @@ function AppRouter() {
 
       <Routes>
         
-        <Route path="/" element={<MainLayout><Home /></MainLayout>}/>
-        <Route path="/products" element={<MainLayout><Products /></MainLayout>}/>
-        <Route path="/product/:id" element={<MainLayout><ProductDetail /></MainLayout>}/>
+        <Route path="/" element={<MainLayout>   <Home />  </MainLayout>}/>
+        <Route path="/products" element={<MainLayout>  <Products />   </MainLayout>}/>
+        <Route path="/product/:id" element={<MainLayout>   <ProductDetail />  </MainLayout>}/>
                
                
 
