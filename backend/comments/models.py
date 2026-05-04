@@ -14,4 +14,4 @@ class Comment(models.Model):
 
 
     def __str__(self):
-        return  str(self.rating) + "|"  + self.product.name 
+        return  str(self.rating) + " | "  + self.product.name 

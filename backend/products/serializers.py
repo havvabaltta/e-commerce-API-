@@ -28,7 +28,7 @@ class BaseProductSerializer(serializers.ModelSerializer):
         ]
 
 
-# 🔥 LIST
+#  LIST
 class ProductListSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -36,7 +36,7 @@ class ProductListSerializer(serializers.ModelSerializer):
         fields = ["id", "name", "price", "image", "category", "isHome"]
 
 
-# 🔥 DETAIL
+#  DETAIL
 class ProductDetailSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
 
@@ -45,13 +45,13 @@ class ProductDetailSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-# 🔥 CREATE
+#  CREATE
 class ProductCreateSerializer(BaseProductSerializer):
     class Meta(BaseProductSerializer.Meta):
         fields = ["name", "slug", "price", "category", "image"]
 
 
-# 🔥 UPDATE
+#  UPDATE
 class ProductUpdateSerializer(BaseProductSerializer):
     class Meta(BaseProductSerializer.Meta):
         fields = ["name", "slug", "description", "price", "stock", "image", "isHome", "isActive"]

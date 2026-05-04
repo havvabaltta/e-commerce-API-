@@ -42,12 +42,19 @@ def admin_product_list(request):
     return Response (serializer.data)    
 
 
-#single data serializer ile
+
 @api_view(['GET'])
-def product_details(request,pk):
-    product= Product.objects.get(pk=pk)
-    serializer= serializers.ProductDetailSerializer(product)
-    return Response (serializer.data)
+def product_details(request, pk):
+    try:
+        product = Product.objects.get(pk=pk)
+    except Product.DoesNotExist:
+        return Response(
+            {"error": "Product not found"},
+            status=status.HTTP_404_NOT_FOUND
+        )
+
+    serializer = serializers.ProductDetailSerializer(product)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])

@@ -15,7 +15,7 @@ class Command(BaseCommand):
         Category.objects.all().delete()
 
         # -------------------------
-        # 📂 DAHA FAZLA KATEGORİ (TEMİZ)
+        #  DAHA FAZLA KATEGORİ
         # -------------------------
         categories = [
             "Telefon",
@@ -49,7 +49,7 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS("Categories created"))
 
         # -------------------------
-        # 🛒 AZ VE TEMİZ ÜRÜNLER
+        #       ÜRÜNLER
         # -------------------------
         products_map = {
             "Telefon": ["Akıllı Telefon"],

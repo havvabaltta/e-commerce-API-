@@ -28,18 +28,26 @@ class CommentBaseSerializer(serializers.ModelSerializer):
 
 # LIST / GET
 class CommentSerializer(CommentBaseSerializer):
+    user = serializers.CharField(source="user.username", read_only=True)
+
     class Meta(CommentBaseSerializer.Meta):
         fields = "__all__"
 
 
 # CREATE
 class CommentCreateSerializer(CommentBaseSerializer):
+    user = serializers.CharField(source="user.username", read_only=True)
+
     class Meta(CommentBaseSerializer.Meta):
-        fields = ["rating", "text", "product"]
+        fields = ["rating", "text", "product","user"]
+
+    
         
 
 # UPDATE
 class CommentUpdateSerializer(CommentBaseSerializer):
+    user = serializers.CharField(source="user.username", read_only=True)
+
     class Meta(CommentBaseSerializer.Meta):
         fields = ["rating", "text"]
 
