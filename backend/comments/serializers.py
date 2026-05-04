@@ -41,8 +41,7 @@ class CommentCreateSerializer(CommentBaseSerializer):
     class Meta(CommentBaseSerializer.Meta):
         fields = ["rating", "text", "product","user"]
 
-    
-        
+
 
 # UPDATE
 class CommentUpdateSerializer(CommentBaseSerializer):
